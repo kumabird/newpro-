@@ -87,6 +87,10 @@ button {
 const SIDEBAR = `
 <div class="sidebar">
   <a href="/">🏠 ホーム</a>
+  <a href="/">📺️ チャンネル検索</a>
+  <a href="/">🕒️ 履歴</a>
+  <a href="/">⚙ 管理者ページ</a>
+  <a href="/">🚪 ログアウト</a>
 </div>
 `;
 
