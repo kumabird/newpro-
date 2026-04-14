@@ -185,13 +185,13 @@ app.get("/search", (req, res) => {
 });
 
 // -----------------------------
-// 9本再生
+// 18本再生
 // -----------------------------
 app.get("/watch", (req, res) => {
   const id = req.query.v;
   if (!id) return res.redirect("/");
 
-  const players = Array.from({ length: 9 }).map(() => `
+  const players = Array.from({ length: 18 }).map(() => `
     <iframe width="300" height="170"
       src="https://www.youtube.com/embed/${id}"
       frameborder="0"
