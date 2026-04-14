@@ -205,7 +205,7 @@ app.get("/watch", (req, res) => {
     <body>
       ${SIDEBAR}
       <div class="main">
-        <h2>動画再生（27本同時）</h2>
+        <h2>動画再生</h2>
         <div style="
           display:grid;
           grid-template-columns: repeat(3, 1fr);
