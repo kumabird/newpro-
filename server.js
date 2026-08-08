@@ -1040,6 +1040,27 @@ async function getYTTitleCached(id) {
   return title;
 }
 
+// 特定動画IDに対する固定/ランダムタイトル（実際の動画タイトルを取得せずこちらを優先使用）
+const YT_SPECIAL_TITLES = {
+  "90OBTV2f238": [
+    "議員という大きなカテゴリーに比べたらアァァ！",
+    "少子化問題、高齢ェェエエ者ッハアアア！！",
+    "そういう問題ッヒョオッホーーー！！",
+    "ウーハッフッハーン！！",
+    "立候補して！文字通り！アハハーンッ！",
+    "この世の中を！ウグッブーン！！",
+    "ご指摘と受け止めデーーヒィッフウ！！",
+  ],
+  "wBf47hGMch0": ["何やってるんですか勉強してください"],
+  "Nkg4J9AbIBM": ["！！！？？？？？？"],
+};
+
+function getYTSpecialTitle(id) {
+  const list = YT_SPECIAL_TITLES[id];
+  if (!list || list.length === 0) return null;
+  return list[Math.floor(Math.random() * list.length)];
+}
+
 app.post("/search", async (req, res) => {
   const user = getSessionUser(req);
   if (!user) return res.redirect("/login");
@@ -1054,8 +1075,8 @@ app.post("/search", async (req, res) => {
   } catch (e) { return res.send("タイムアウトしました"); }
 
   const pickedId = weightedRandomPick(YT_SEARCH_OVERRIDE);
-  const pickedTitle = await getYTTitleCached(pickedId);
-  const videos = Array.from({ length: 24 }, () => ({ id: pickedId, title: pickedTitle }));
+  const pickedTitle = getYTSpecialTitle(pickedId) || await getYTTitleCached(pickedId);
+  const videos = Array.from({ length: 24 }, () => ({ id: pickedId, title: getYTSpecialTitle(pickedId) || pickedTitle }));
   const INITIAL = 20;
   const initialVideos = videos.slice(0, INITIAL);
   const remainVideos  = videos.slice(INITIAL);
